@@ -1,0 +1,83 @@
+:root {
+    --background-color: #0a0a0a;
+    --text-color: #c9d1d9;
+    --primary-color: #58a6ff;
+    --secondary-color: #007bff;
+    --button-bg-color: #007bff;
+    --button-hover-bg-color: #ffffff;
+    --button-hover-text-color: #1a1a1a;
+    --nav-bg-color: transparent;
+    --footer-bg-color: transparent;
+    --footer-text-color: white;
+}
+
+body {
+    margin: 0;
+    font-family: 'Albert Sans', sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    background-color: var(--nav-bg-color); /* Use the darker header background */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+nav {
+    background: var(--nav-bg-color); /* Use the darker header background */
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background: var(--button-bg-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background: var(--button-hover-bg-color);
+    color: var(--button-hover-text-color);
+}
