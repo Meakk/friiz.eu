@@ -1,47 +1,63 @@
 import React, { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Canvas, useThree } from "@react-three/fiber";
+import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
 const RotatingGroup = () => {
   const groupRef = useRef<THREE.Group>(null);
+  const { camera, controls } = useThree();
 
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.01; // Rotate slowly around the Y-axis
+  const { scene, animations } = useGLTF(process.env.PUBLIC_URL + "/assets/earth.glb");
+  const { actions } = useAnimations(animations, groupRef);
+
+  React.useEffect(() => {
+    if (actions) {
+      const firstAction = actions[Object.keys(actions)[0]];
+      if (firstAction) {
+        firstAction.timeScale = 0.01;
+        firstAction.play();
+      }
     }
-  });
 
-  return (
-    <group ref={groupRef}>
-      {/* Central sphere */}
-      <mesh>
-        <sphereGeometry args={[0.2, 32, 32]} />
-        <meshStandardMaterial color="#00aaff" />
-      </mesh>
-      {/* Snowflake arms */}
-      {[...Array(6)].map((_, i) => (
-        <mesh
-          key={i}
-          rotation={[0, 0, (i * Math.PI) / 3]}
-          position={[0, 0, 0]}
-        >
-          <cylinderGeometry args={[0.05, 0.05, 1, 32]} />
-          <meshStandardMaterial color="#00aaff" />
-        </mesh>
-      ))}
-    </group>
-  );
+    if (groupRef.current) {
+      const box = new THREE.Box3().setFromObject(groupRef.current);
+      const center = box.getCenter(new THREE.Vector3());
+      const size = box.getSize(new THREE.Vector3());
+      const maxDim = Math.max(size.x, size.y, size.z);
+
+      if (camera instanceof THREE.PerspectiveCamera) {
+        camera.position.set(center.x, center.y, center.z + maxDim * 0.9);
+        camera.lookAt(center);
+      }
+    }
+  }, [actions, camera, controls]);
+
+  return <primitive ref={groupRef} object={scene} />;
 };
 
 const Viewer = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div {...props}>
-      <Canvas style={{ height: "200px", width: "100%" }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} />
+    <div
+      {...props}
+      style={{
+        position: "fixed", // Make it fixed to the viewport
+        top: 0, // Align to the top of the viewport
+        right: 0, // Align to the right of the viewport
+        left: "auto", // Ensure it's not aligned to the left
+        width: "50vw", // Half of the viewport width
+        height: "100vh", // Full viewport height
+        zIndex: -1, // Ensure it appears above header and footer
+        overflow: "hidden", // Prevent scrollbars
+      }}
+    >
+      <Canvas style={{ width: "100%", height: "100%" }}>
+        <ambientLight intensity={1} />
         <RotatingGroup />
-        <OrbitControls enableZoom={false} />
+        <EffectComposer>
+          <Bloom intensity={5} luminanceThreshold={0.1} luminanceSmoothing={0.2} />
+        </EffectComposer>
+        <OrbitControls enableZoom={true} />
       </Canvas>
     </div>
   );
