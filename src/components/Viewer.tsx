@@ -15,7 +15,7 @@ const RotatingGroup = () => {
     if (actions) {
       const firstAction = actions[Object.keys(actions)[0]];
       if (firstAction) {
-        firstAction.timeScale = 0.01;
+        firstAction.timeScale = 0.06;
         firstAction.play();
       }
     }
