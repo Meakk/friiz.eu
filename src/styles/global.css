@@ -1,4 +1,12 @@
 :root {
+
+    /* palette */
+    --white: #ffffffff;
+    --rich-black: #00171fff;
+    --prussian-blue: #003459ff;
+    --cerulean: #007ea7ff;
+    --picton-blue: #00a8e8ff;
+
     --background-color: #0a0a0a;
     --text-color: #c9d1d9;
     --primary-color: #58a6ff;
@@ -49,22 +57,29 @@ a:hover {
     text-align: center;
 }
 
-.footer {
-    background-color: var(--footer-bg-color);
+footer {
+    background: rgba(255, 255, 255, 0.05);
     color: var(--footer-text-color);
     text-align: center;
     padding: 10px 0;
     position: relative;
     bottom: 0;
     width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Adds a subtle bottom border */
 }
 
 nav {
-    background: var(--nav-bg-color); /* Use the darker header background */
+    background: rgba(255, 255, 255, 0.02); /* Slightly lighter and transparent */
+    backdrop-filter: blur(20px); /* Adds a blur effect */
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky; /* Ensures the nav stays visible while scrolling */
+    top: 0;
+    z-index: 1000; /* Keeps it above other content */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Adds a subtle bottom border */
+    color: white;
 }
 
 button {

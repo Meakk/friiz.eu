@@ -29,7 +29,10 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
         padding: "2rem",
       }}
     >
-      <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>Welcome to Friiz</h1>
+      <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>
+        <span style={{ color: "var(--text-color)" }}>Welcome to</span>{" "}
+        <span style={{ color: "var(--primary-color)" }}>friiz</span>
+      </h1>
       <p style={{ fontSize: "1.25rem", maxWidth: "600px", margin: "1rem 0" }}>
         Open-source solutions for 3D asset viewing and development.{" "}
         <span
@@ -69,7 +72,7 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
         onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
         onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       >
-        Get Started
+        Contact
       </button>
     </div>
   );

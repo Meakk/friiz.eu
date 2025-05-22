@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, Suspense } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
+import { OrbitControls, useGLTF, useAnimations, Html, useProgress } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
@@ -27,7 +27,7 @@ const RotatingGroup = () => {
       const maxDim = Math.max(size.x, size.y, size.z);
 
       if (camera instanceof THREE.PerspectiveCamera) {
-        camera.position.set(center.x, center.y, center.z + maxDim * 0.9);
+        camera.position.set(center.x, center.y, center.z + maxDim * 0.75);
         camera.lookAt(center);
       }
     }
@@ -36,12 +36,39 @@ const RotatingGroup = () => {
   return <primitive ref={groupRef} object={scene} />;
 };
 
+const Loader = () => {
+  const { progress } = useProgress();
+  return (
+    <Html center>
+      <div
+        style={{
+          width: "200px",
+          height: "10px",
+          background: "var(--text-color)",
+          borderRadius: "5px",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            width: `${progress}%`,
+            height: "100%",
+            background: "var(--primary-color)",
+            transition: "width 0.2s ease",
+          }}
+        />
+      </div>
+    </Html>
+  );
+};
+
 const Viewer = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       {...props}
       style={{
-        position: "fixed", // Make it fixed to the viewport
+        position: "absolute", // Make it fixed to the viewport
         top: 0, // Align to the top of the viewport
         right: 0, // Align to the right of the viewport
         left: "auto", // Ensure it's not aligned to the left
@@ -52,12 +79,14 @@ const Viewer = (props: React.HTMLAttributes<HTMLDivElement>) => {
       }}
     >
       <Canvas style={{ width: "100%", height: "100%" }}>
-        <ambientLight intensity={1} />
-        <RotatingGroup />
-        <EffectComposer>
-          <Bloom intensity={5} luminanceThreshold={0.1} luminanceSmoothing={0.2} />
-        </EffectComposer>
-        <OrbitControls enableZoom={true} />
+        <Suspense fallback={<Loader />}>
+          <ambientLight intensity={1} />
+          <RotatingGroup />
+          <EffectComposer>
+            <Bloom intensity={5} luminanceThreshold={0.1} luminanceSmoothing={0.2} />
+          </EffectComposer>
+          <OrbitControls enableZoom={true} />
+        </Suspense>
       </Canvas>
     </div>
   );
