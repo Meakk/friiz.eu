@@ -1,95 +1,39 @@
-import React, { useRef, Suspense } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, useAnimations, Html, useProgress } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import * as THREE from "three";
+import * as BABYLON from "@babylonjs/core";
+import SceneComponent from "./SceneComponent";
+import "@babylonjs/loaders";
 
-const RotatingGroup = () => {
-  const groupRef = useRef<THREE.Group>(null);
-  const { camera, controls } = useThree();
+const onSceneReady = async (scene: BABYLON.Scene) => {
 
-  const { scene, animations } = useGLTF(process.env.PUBLIC_URL + "/assets/earth.glb");
-  const { actions } = useAnimations(animations, groupRef);
+  scene.getEngine().displayLoadingUI();
 
-  React.useEffect(() => {
-    if (actions) {
-      const firstAction = actions[Object.keys(actions)[0]];
-      if (firstAction) {
-        firstAction.timeScale = 0.06;
-        firstAction.play();
-      }
-    }
+  // This creates and positions a free camera (non-mesh)
+  const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -20), scene);
 
-    if (groupRef.current) {
-      const box = new THREE.Box3().setFromObject(groupRef.current);
-      const center = box.getCenter(new THREE.Vector3());
-      const size = box.getSize(new THREE.Vector3());
-      const maxDim = Math.max(size.x, size.y, size.z);
+  scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+  scene.animationTimeScale = 0.1;
 
-      if (camera instanceof THREE.PerspectiveCamera) {
-        camera.position.set(center.x, center.y, center.z + maxDim * 0.75);
-        camera.lookAt(center);
-      }
-    }
-  }, [actions, camera, controls]);
+  // This targets the camera to scene origin
+  camera.setTarget(BABYLON.Vector3.Zero());
 
-  return <primitive ref={groupRef} object={scene} />;
+  const canvas = scene.getEngine().getRenderingCanvas();
+
+  // This attaches the camera to the canvas
+  camera.attachControl(canvas, true);
+
+  // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+  // Default intensity is 1. Let's dim the light a small amount
+  light.intensity = 0.7;
+
+  var gl = new BABYLON.GlowLayer("glow", scene);
+  gl.intensity = 2.0;
+
+  await BABYLON.AppendSceneAsync("/startup-website/assets/earth.glb", scene);
+
+  scene.getEngine().hideLoadingUI();
 };
 
-const Loader = () => {
-  const { progress } = useProgress();
-  return (
-    <Html center>
-      <div
-        style={{
-          width: "200px",
-          height: "10px",
-          background: "var(--text-color)",
-          borderRadius: "5px",
-          overflow: "hidden",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            width: `${progress}%`,
-            height: "100%",
-            background: "var(--primary-color)",
-            transition: "width 0.2s ease",
-          }}
-        />
-      </div>
-    </Html>
-  );
-};
-
-const Viewer = (props: React.HTMLAttributes<HTMLDivElement>) => {
-  return (
-    <div
-      {...props}
-      style={{
-        position: "absolute", // Make it fixed to the viewport
-        top: 0, // Align to the top of the viewport
-        right: 0, // Align to the right of the viewport
-        left: "auto", // Ensure it's not aligned to the left
-        width: "50vw", // Half of the viewport width
-        height: "100vh", // Full viewport height
-        zIndex: -1, // Ensure it appears above header and footer
-        overflow: "hidden", // Prevent scrollbars
-      }}
-    >
-      <Canvas style={{ width: "100%", height: "100%" }}>
-        <Suspense fallback={<Loader />}>
-          <ambientLight intensity={1} />
-          <RotatingGroup />
-          <EffectComposer>
-            <Bloom intensity={5} luminanceThreshold={0.1} luminanceSmoothing={0.2} />
-          </EffectComposer>
-          <OrbitControls enableZoom={true} />
-        </Suspense>
-      </Canvas>
-    </div>
-  );
-};
-
-export default Viewer;
+export default () => (
+    <SceneComponent antialias onSceneReady={onSceneReady} style={{ width: "100%", height: "100%" }} />
+);
