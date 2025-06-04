@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { Engine, Scene } from "@babylonjs/core";
+import { Engine, Scene, ILoadingScreen } from "@babylonjs/core";
+import logo from "../assets/friiz_logo.svg";
 
 interface SceneComponentProps {
   antialias?: boolean;
@@ -9,6 +10,24 @@ interface SceneComponentProps {
   onRender?: (scene: Scene) => void;
   onSceneReady: (scene: Scene) => void;
   [key: string]: any;
+}
+
+class CustomLoadingScreen implements ILoadingScreen {
+  constructor(public loadingUIText: string, public loadingUIBackgroundColor: string) {}
+
+  public displayLoadingUI() {
+    const loadingScreenDiv = document.getElementById("customLoadingScreenDiv");
+    if (loadingScreenDiv) {
+      loadingScreenDiv.style.display = "flex"; // Show the loading screen
+    }
+  }
+
+  public hideLoadingUI() {
+    const loadingScreenDiv = document.getElementById("customLoadingScreenDiv");
+    if (loadingScreenDiv) {
+      loadingScreenDiv.style.display = "none"; // Hide the loading screen
+    }
+  }
 }
 
 const SceneComponent: React.FC<SceneComponentProps> = ({ antialias, engineOptions, adaptToDeviceRatio, sceneOptions, onRender, onSceneReady, ...rest }) => {
@@ -21,9 +40,7 @@ const SceneComponent: React.FC<SceneComponentProps> = ({ antialias, engineOption
     if (!canvas) return;
 
     const engine = new Engine(canvas, antialias, engineOptions, adaptToDeviceRatio);
-
-    engine.loadingUIBackgroundColor = "#00000000";
-    engine.loadingUIText = "Loading...";
+    engine.loadingScreen = new CustomLoadingScreen("I'm loading!!", "#BB464Bcc");
 
     const scene = new Scene(engine, sceneOptions);
     if (scene.isReady()) {
@@ -56,7 +73,38 @@ const SceneComponent: React.FC<SceneComponentProps> = ({ antialias, engineOption
     };
   }, [antialias, engineOptions, adaptToDeviceRatio, sceneOptions, onRender, onSceneReady]);
 
-  return <canvas ref={reactCanvas} {...rest} />;
+  return (
+    <div style={{ width: "100%", height: "100%" }}>
+      <canvas ref={reactCanvas} {...rest} />
+      <div
+        id="customLoadingScreenDiv"
+        style={{
+          display: "none", // Use flexbox for centering
+          opacity: 0.6,
+          flexDirection: "column", // Stack logo and text vertically
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "transparent", // Background color for the loading screen
+          alignItems: "center", // Vertically center the content
+          justifyContent: "center", // Horizontally center the content
+          zIndex: 1000, // Ensure it appears above other elements
+        }}
+      >
+        <img
+          src={logo}
+          alt="Loading..."
+          style={{
+            width: "50px", // Adjust the size of the logo
+            height: "auto",
+            animation: "spin 1.2s ease-in-out infinite", // Add spinning animation
+          }}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default SceneComponent;

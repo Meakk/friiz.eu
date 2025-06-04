@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import logo from "../assets/friiz_white.svg";
+import { Link } from "wouter";
 
 const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
-  const words = ["Explore.", "Interact.", "Analyze.", "Integrate."];
+  const words = ["Explore.", "Visualize.", "Interact."];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [animate, setAnimate] = useState(false);
 
@@ -23,22 +25,36 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        height: "50vh",
+        justifyContent: "center", // Center the content vertically
         textAlign: "center",
         padding: "2rem",
+        height: "100%", // Ensure the div takes up the full height of its parent
+        transform: "translateX(-200px)", // Move the div slightly to the left
       }}
     >
-      <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>
-        <span style={{ color: "var(--text-color)" }}>Welcome to</span>{" "}
-        <span style={{ color: "var(--primary-color)" }}>friiz</span>
+      <h1
+        style={{
+          fontSize: "3rem",
+          fontWeight: "bold",
+          display: "flex", // Use flexbox for alignment
+          alignItems: "center", // Vertically align text and logo
+          gap: "20px", // Add spacing between text and logo
+        }}
+      >
+        <span style={{ color: "var(--text-color)" }}>Welcome to</span>
+        <img
+          src={logo}
+          alt="friiz"
+          style={{
+            height: "7rem", // Match the height of the text
+            width: "auto", // Maintain aspect ratio
+          }}
+        />
       </h1>
       <p style={{ fontSize: "1.25rem", maxWidth: "600px", margin: "1rem 0" }}>
-        Open-source solutions for 3D asset viewing and development.{" "}
         <span
           style={{
             fontWeight: "bold",
-            color: "var(--primary-color)",
             fontSize: "1.5rem",
             display: "inline-block",
             transform: animate ? "translateX(100%)" : "translateX(0)",
@@ -55,9 +71,11 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
             textAlign: "left",
             width: "100%",
           }}
-        >
-        </span>
+        ></span>
+        Solutions for 3D asset viewing and development.{" "}
       </p>
+      <div>
+      <Link href="/contact" style={{ color: "var(--text-color)", textDecoration: "none" }}>
       <button
         style={{
           background: "var(--button-bg-color)",
@@ -74,7 +92,9 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
       >
         Contact
       </button>
-    </div>
+      </Link>
+      </div>
+      </div>
   );
 };
 

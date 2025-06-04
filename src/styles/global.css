@@ -1,22 +1,20 @@
 :root {
 
     /* palette */
-    --white: #ffffffff;
-    --rich-black: #00171fff;
-    --prussian-blue: #003459ff;
-    --cerulean: #007ea7ff;
-    --picton-blue: #00a8e8ff;
+    --white: #fafdff;
+    --darker: #00101f;
+    --dark: #002430;
+    --primary-color: #1099c3;
 
-    --background-color: #0a0a0a;
-    --text-color: #c9d1d9;
-    --primary-color: #58a6ff;
+    --background-color: var(--darker);
+    --text-color: var(--white);
     --secondary-color: #007bff;
     --button-bg-color: #007bff;
-    --button-hover-bg-color: #ffffff;
-    --button-hover-text-color: #1a1a1a;
+    --button-hover-bg-color: var(--white);
+    --button-hover-text-color: var(--darker);
     --nav-bg-color: transparent;
     --footer-bg-color: transparent;
-    --footer-text-color: white;
+    --footer-text-color: var(--white);
 }
 
 body {
@@ -95,4 +93,13 @@ button {
 button:hover {
     background: var(--button-hover-bg-color);
     color: var(--button-hover-text-color);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
