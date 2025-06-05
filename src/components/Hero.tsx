@@ -41,7 +41,7 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
           gap: "20px", // Add spacing between text and logo
         }}
       >
-        <span style={{ color: "var(--text-color)" }}>Welcome to</span>
+        <span style={{ color: "var(--text-color)", display: "inline-block", verticalAlign: "top" }}>Welcome to</span>
         <img
           src={logo}
           alt="friiz"
@@ -51,50 +51,50 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
           }}
         />
       </h1>
-      <p style={{ fontSize: "1.25rem", maxWidth: "600px", margin: "1rem 0" }}>
+      <div
+        style={{
+          display: "flex", // Use flexbox for alignment
+          justifyContent: "flex-end", // Align the content to the right
+          width: "100%", // Ensure the div spans the full width
+          transform: "translateX(-40px) translateY(-20px)"
+        }}
+      >
         <span
           style={{
+            color: "var(--text-color)",
             fontWeight: "bold",
             fontSize: "1.5rem",
             display: "inline-block",
             transform: animate ? "translateX(100%)" : "translateX(0)",
             opacity: animate ? 0 : 1,
-            transition: "transform 0.5s ease, opacity 0.5s ease",
+            transition: "transform 0.4s ease, opacity 0.4s ease"
           }}
         >
           {words[currentWordIndex]}
         </span>
-        <span
-          style={{
-            display: "block",
-            marginTop: "0.5rem",
-            textAlign: "left",
-            width: "100%",
-          }}
-        ></span>
-        Solutions for 3D asset viewing and development.{" "}
-      </p>
+      </div>
+
       <div>
-      <Link href="/contact" style={{ color: "var(--text-color)", textDecoration: "none" }}>
-      <button
-        style={{
-          background: "var(--button-bg-color)",
-          color: "white",
-          border: "none",
-          padding: "0.75rem 1.5rem",
-          borderRadius: "5px",
-          cursor: "pointer",
-          transition: "transform 0.3s, background 0.3s",
-          fontSize: "1rem",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-      >
-        Contact
-      </button>
-      </Link>
+        <Link href="/contact" style={{ color: "var(--text-color)", textDecoration: "none" }}>
+          <button
+            style={{
+              background: "var(--button-bg-color)",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "transform 0.3s, background 0.3s",
+              fontSize: "1rem",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          >
+            Contact
+          </button>
+        </Link>
       </div>
-      </div>
+    </div>
   );
 };
 

@@ -8,8 +8,8 @@
 
     --background-color: var(--darker);
     --text-color: var(--white);
-    --secondary-color: #007bff;
-    --button-bg-color: #007bff;
+    --secondary-color: var(--primary-color);
+    --button-bg-color: var(--primary-color);
     --button-hover-bg-color: var(--white);
     --button-hover-text-color: var(--darker);
     --nav-bg-color: transparent;

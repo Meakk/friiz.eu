@@ -11,7 +11,7 @@ export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
         const form = event.currentTarget;
 
         const formData = new FormData(form);
-        formData.append("access_key", "9a7d0405-3017-4d18-8ca6-a2a972287eb6");
+        formData.append("access_key", "94c33277-8883-40d7-9615-5b84b31c09b9");
 
         try {
             const response = await fetch("https://api.web3forms.com/submit", {

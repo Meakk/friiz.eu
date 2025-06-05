@@ -29,7 +29,7 @@ const onSceneReady = async (scene: BABYLON.Scene) => {
   var gl = new BABYLON.GlowLayer("glow", scene);
   gl.intensity = 2.0;
 
-  await BABYLON.AppendSceneAsync("/startup-website/assets/earth.glb", scene);
+  await BABYLON.AppendSceneAsync("/assets/earth.glb", scene);
 
   scene.getEngine().hideLoadingUI();
 };

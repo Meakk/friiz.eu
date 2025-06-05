@@ -11,7 +11,7 @@ const Home = () => {
         style={{
           margin: "0 auto",
           maxWidth: "1280px",
-          height: "80vh", // Set a height for the overlapping section
+          height: "75vh", // Set a height for the overlapping section
         }}
       >
         <Hero
@@ -36,9 +36,6 @@ const Home = () => {
           <Viewer />
         </div>
       </div>
-      <RenderingExpertise style={{ maxWidth: "1280px" }} />
-      <RenderingExpertise style={{ maxWidth: "1280px" }} />
-      <RenderingExpertise style={{ maxWidth: "1280px" }} />
       <RenderingExpertise style={{ maxWidth: "1280px" }} />
     </div>
   );
