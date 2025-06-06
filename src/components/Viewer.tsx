@@ -1,39 +1,68 @@
 import * as BABYLON from "@babylonjs/core";
 import SceneComponent from "./SceneComponent";
 import "@babylonjs/loaders";
+import React from "react";
 
-const onSceneReady = async (scene: BABYLON.Scene) => {
+class Viewer extends React.Component<{ file: string, scaling?: number, target?: Array<number> }> {
+  private file: string;
+  private scaling: number;
+  private target: Array<number>;
 
-  scene.getEngine().displayLoadingUI();
+  constructor(props: { file: string, scaling: number, target: Array<number> }) {
+    super(props);
+    this.file = props.file; // Save the file string in a member variable
+    this.scaling = props.scaling || 1; // Default scaling to 1 if not provided
+    this.target = props.target || [0, 0, 0]; // Default target to origin if not provided
+  }
 
-  // This creates and positions a free camera (non-mesh)
-  const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 0, -20), scene);
+  onSceneReady = async (scene: BABYLON.Scene) => {
+    scene.getEngine().displayLoadingUI();
 
-  scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-  scene.animationTimeScale = 0.1;
+    // This creates and positions a free camera (non-mesh)
+    const camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, 10, BABYLON.Vector3.FromArray(this.target), scene);
 
-  // This targets the camera to scene origin
-  camera.setTarget(BABYLON.Vector3.Zero());
+    scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
+    scene.animationTimeScale = 0.1;
 
-  const canvas = scene.getEngine().getRenderingCanvas();
+    // This targets the camera to scene origin
+    //camera.setTarget(new BABYLON.Vector3(0.000171477,-0.000747137,0.0191574));
 
-  // This attaches the camera to the canvas
-  camera.attachControl(canvas, true);
+    const canvas = scene.getEngine().getRenderingCanvas();
 
-  // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-  const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    // This attaches the camera to the canvas
+    camera.attachControl(canvas, false);
 
-  // Default intensity is 1. Let's dim the light a small amount
-  light.intensity = 0.7;
+    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
-  var gl = new BABYLON.GlowLayer("glow", scene);
-  gl.intensity = 2.0;
+    // Default intensity is 1. Let's dim the light a small amount
+    light.intensity = 0.7;
 
-  await BABYLON.AppendSceneAsync("/assets/earth.glb", scene);
+    var gl = new BABYLON.GlowLayer("glow", scene);
+    gl.intensity = 2.0;
 
-  scene.getEngine().hideLoadingUI();
-};
+    // Use the file member variable to load the model
+    BABYLON.ImportMeshAsync("/assets/" + this.file, scene).then((result) => {
+      result.meshes.forEach((mesh) => {
+        mesh.scaling = new BABYLON.Vector3(this.scaling, this.scaling, this.scaling);
+      });
 
-export default () => (
-    <SceneComponent antialias onSceneReady={onSceneReady} style={{ width: "100%", height: "100%" }} />
-);
+      scene.getEngine().hideLoadingUI();
+
+    }).catch((error) => {
+      console.error("Error loading model:", error);
+    });
+  };
+
+  render() {
+    return (
+      <SceneComponent
+        antialias
+        onSceneReady={this.onSceneReady}
+        style={{ width: "100%", height: "100%" }}
+      />
+    );
+  }
+}
+
+export default Viewer;

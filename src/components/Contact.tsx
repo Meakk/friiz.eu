@@ -38,7 +38,8 @@ export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
         <div
             {...props}
             style={{
-                maxWidth: "800px", // Increased width
+                width: "100%",
+                maxWidth: "640px", // Increased max-width for better readability
                 margin: "3rem auto", // Adjusted margin for better spacing
                 padding: "3rem", // Increased padding
                 background: "var(--background-color)", // Dark background matching the theme

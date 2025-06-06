@@ -21,16 +21,6 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       {...props}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center", // Center the content vertically
-        textAlign: "center",
-        padding: "2rem",
-        height: "100%", // Ensure the div takes up the full height of its parent
-        transform: "translateX(-200px)", // Move the div slightly to the left
-      }}
     >
       <h1
         style={{
@@ -72,27 +62,6 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
         >
           {words[currentWordIndex]}
         </span>
-      </div>
-
-      <div>
-        <Link href="/contact" style={{ color: "var(--text-color)", textDecoration: "none" }}>
-          <button
-            style={{
-              background: "var(--button-bg-color)",
-              color: "white",
-              border: "none",
-              padding: "0.75rem 1.5rem",
-              borderRadius: "5px",
-              cursor: "pointer",
-              transition: "transform 0.3s, background 0.3s",
-              fontSize: "1rem",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          >
-            Contact
-          </button>
-        </Link>
       </div>
     </div>
   );
