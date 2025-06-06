@@ -109,7 +109,7 @@ export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
                     onMouseEnter={(e) => (e.currentTarget.style.background = "var(--secondary-color)")}
                     onMouseLeave={(e) => (e.currentTarget.style.background = "var(--primary-color)")}
                 >
-                    Submit Form
+                    Send
                 </button>
             </form>
             <span style={{ display: "block", marginTop: "1.5rem", textAlign: "center", color: "var(--text-color)" }}>

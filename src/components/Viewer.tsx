@@ -18,8 +18,19 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
   onSceneReady = async (scene: BABYLON.Scene) => {
     scene.getEngine().displayLoadingUI();
 
+    scene.onBeforeRenderObservable.add(() => {
+      // This will be called before each render
+      const relativeOffset = 0.7;
+      const absoluteOffset = relativeOffset * camera.radius * Math.tan(camera.fov / 2);
+      camera.targetScreenOffset = new BABYLON.Vector2(absoluteOffset, 0);
+    });
+
     // This creates and positions a free camera (non-mesh)
     const camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, 10, BABYLON.Vector3.FromArray(this.target), scene);
+
+    //camera.viewport = new BABYLON.Viewport(0.2, 0, 1.2, 1);
+    camera.lowerRadiusLimit = 10;
+    camera.upperRadiusLimit = 10;
 
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
     scene.animationTimeScale = 0.1;

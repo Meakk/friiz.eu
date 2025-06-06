@@ -45,7 +45,7 @@ const Home = () => {
             top: 0,
             right: 0,
             left: "auto",
-            width: "50vw", // Viewer takes 50% of the viewport width
+            width: "100vw", // Viewer takes 50% of the viewport width
             height: "100vh", // Viewer spans the full height of the parent
             zIndex: 1, // Ensure Viewer is behind the Hero
             overflow: "hidden", // Prevent scrollbars
