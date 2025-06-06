@@ -12,8 +12,6 @@ const App = () => {
     <>
       <Header />
       <Route path="/" component={Home} />
-      <Route path="/rendering" component={Rendering} />
-      <Route path="/contact" component={ContactUs} />
       <Footer />
     </>
   );

@@ -22,15 +22,7 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
     <div
       {...props}
     >
-      <h1
-        style={{
-          fontSize: "3rem",
-          fontWeight: "bold",
-          display: "flex", // Use flexbox for alignment
-          alignItems: "center", // Vertically align text and logo
-          gap: "20px", // Add spacing between text and logo
-        }}
-      >
+      <h1>
         <span style={{ color: "var(--text-color)", display: "inline-block", verticalAlign: "top" }}>Welcome to</span>
         <img
           src={logo}

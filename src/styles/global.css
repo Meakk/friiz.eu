@@ -24,13 +24,36 @@ body {
     color: var(--text-color);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0;
     padding: 0;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     color: var(--primary-color);
+}
+
+h1
+{
+    font-size: 3rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (max-width: 800px) {
+    h1 {
+        flex-direction: column;
+    }
 }
 
 a {
@@ -49,7 +72,8 @@ a:hover {
 }
 
 .header {
-    background-color: var(--nav-bg-color); /* Use the darker header background */
+    background-color: var(--nav-bg-color);
+    /* Use the darker header background */
     color: white;
     padding: 10px 0;
     text-align: center;
@@ -63,20 +87,26 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Adds a subtle bottom border */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    /* Adds a subtle bottom border */
 }
 
 nav {
-    background: rgba(255, 255, 255, 0.02); /* Slightly lighter and transparent */
-    backdrop-filter: blur(20px); /* Adds a blur effect */
+    background: rgba(255, 255, 255, 0.02);
+    /* Slightly lighter and transparent */
+    backdrop-filter: blur(20px);
+    /* Adds a blur effect */
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky; /* Ensures the nav stays visible while scrolling */
+    position: sticky;
+    /* Ensures the nav stays visible while scrolling */
     top: 0;
-    z-index: 1000; /* Keeps it above other content */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Adds a subtle bottom border */
+    z-index: 1000;
+    /* Keeps it above other content */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* Adds a subtle bottom border */
     color: white;
 }
 
@@ -87,7 +117,8 @@ button {
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s; /* Smooth transition for hover effect */
+    transition: background 0.3s, color 0.3s;
+    /* Smooth transition for hover effect */
 }
 
 button:hover {
@@ -96,10 +127,11 @@ button:hover {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

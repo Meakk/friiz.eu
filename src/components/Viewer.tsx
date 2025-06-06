@@ -30,7 +30,7 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
     const canvas = scene.getEngine().getRenderingCanvas();
 
     // This attaches the camera to the canvas
-    camera.attachControl(canvas, false);
+    camera.attachControl(canvas, true);
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
