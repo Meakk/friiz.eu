@@ -18,6 +18,8 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
   onSceneReady = async (scene: BABYLON.Scene) => {
     scene.getEngine().displayLoadingUI();
 
+    scene.useRightHandedSystem = true
+
     scene.onBeforeRenderObservable.add(() => {
       // This will be called before each render
       const relativeOffset = 0.7;
@@ -25,15 +27,17 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
       camera.targetScreenOffset = new BABYLON.Vector2(absoluteOffset, 0);
     });
 
+    const radius = 10;
+
     // This creates and positions a free camera (non-mesh)
-    const camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, 10, BABYLON.Vector3.FromArray(this.target), scene);
+    const camera = new BABYLON.ArcRotateCamera("Camera", 0, Math.PI / 2, radius, BABYLON.Vector3.FromArray(this.target), scene);
 
     //camera.viewport = new BABYLON.Viewport(0.2, 0, 1.2, 1);
-    camera.lowerRadiusLimit = 10;
-    camera.upperRadiusLimit = 10;
+    camera.lowerRadiusLimit = radius;
+    camera.upperRadiusLimit = radius;
 
     scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
-    scene.animationTimeScale = 0.1;
+    scene.animationTimeScale = 0.3;
 
     // This targets the camera to scene origin
     //camera.setTarget(new BABYLON.Vector3(0.000171477,-0.000747137,0.0191574));
@@ -50,7 +54,7 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
     light.intensity = 0.7;
 
     var gl = new BABYLON.GlowLayer("glow", scene);
-    gl.intensity = 2.0;
+    gl.intensity = 1.5;
 
     // Use the file member variable to load the model
     BABYLON.ImportMeshAsync("/assets/" + this.file, scene).then((result) => {

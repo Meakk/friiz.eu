@@ -35,6 +35,7 @@ const Home = () => {
             justifyContent: "center", // Center the content vertically
             padding: "2rem",
             height: "100%", // Ensure the div takes up the full height of its parent
+            pointerEvents: "none", // Disable pointer events to allow interaction with Viewer below
           }}>
           <Hero />
         </div>

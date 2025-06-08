@@ -88,8 +88,8 @@ const SceneComponent: React.FC<SceneComponentProps> = ({ antialias, engineOption
           width: "100%",
           height: "100%",
           backgroundColor: "transparent", // Background color for the loading screen
-          alignItems: "center", // Vertically center the content
-          justifyContent: "center", // Horizontally center the content
+          alignItems: "flex-end", // Align the content to the right
+          justifyContent: "center", // Vertically center the content
           zIndex: 1000, // Ensure it appears above other elements
         }}
       >
@@ -99,6 +99,7 @@ const SceneComponent: React.FC<SceneComponentProps> = ({ antialias, engineOption
           style={{
             width: "50px", // Adjust the size of the logo
             height: "auto",
+            padding: "5vw",
             animation: "spin 1.2s ease-in-out infinite", // Add spinning animation
           }}
         />
