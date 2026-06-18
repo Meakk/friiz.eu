@@ -147,6 +147,7 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
               justifyContent: "center",
               zIndex: 10,
               opacity: 0.5,
+              pointerEvents: "none",
             }}
           >
             <div
