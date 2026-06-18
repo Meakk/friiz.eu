@@ -33,7 +33,7 @@ const Footer = () => {
               margin: 0,
             }}
           >
-            Industrial-grade 3D visualization services powered by open-source F3D technology.
+            Industrial-grade 3D visualization services powered by open-source technologies.
           </p>
         </div>
 

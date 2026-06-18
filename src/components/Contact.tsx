@@ -88,8 +88,8 @@ export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
                             marginBottom: "2.5rem",
                         }}
                     >
-                        Whether you need a custom 3D viewer, scientific visualization
-                        tooling, or enterprise F3D support — we'd love to hear from you.
+                        F3D is much more than just a 3D viewer. It's a powerful open-source framework for building high-performance 3D applications.
+                        Whether you need a custom 3D viewer, scientific visualization tooling, or enterprise F3D support — we'd love to hear from you.
                     </p>
                     <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                         <a

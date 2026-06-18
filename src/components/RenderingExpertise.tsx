@@ -6,19 +6,19 @@ const services = [
     Icon: FiEye,
     title: "3D Visualization",
     description:
-      "Deploy beautiful, interactive 3D viewers on any platform. We support 50+ formats — GLB, STEP, USD, VTK, point clouds, and more.",
+      "Deploy beautiful, interactive 3D viewers on any platform — Windows, Linux, macOS, Android, and Web. We support 50+ formats including GLB, STEP, USD, VTK, and point clouds.",
   },
   {
     Icon: FiCpu,
     title: "Scientific Rendering",
     description:
-      "Transform complex datasets into clear, compelling visualizations. Built for engineers who need precision and real-time performance.",
+      "Built for engineers who need precision and real-time performance. We turn complex datasets into clear, actionable visualizations without the rendering overhead.",
   },
   {
     Icon: FiGitMerge,
-    title: "F3D Integration",
+    title: "Pipeline Integration",
     description:
-      "From CI/CD pipelines to production web APIs, we integrate F3D seamlessly into your existing infrastructure and workflows.",
+      "Integrate F3D into your CI/CD pipelines, web APIs, or production infrastructure. Generate images from 3D models automatically, in any headless environment.",
   },
 ];
 
