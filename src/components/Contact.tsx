@@ -1,15 +1,14 @@
 import React, { FormEvent, useState } from "react";
+import { FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
     const [result, setResult] = useState<string>("");
 
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setResult("Sending....");
+        setResult("Sending...");
 
-        // Store the currentTarget in a variable before the async operation
         const form = event.currentTarget;
-
         const formData = new FormData(form);
         formData.append("access_key", "94c33277-8883-40d7-9615-5b84b31c09b9");
 
@@ -22,8 +21,8 @@ export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
             const data: { success: boolean; message: string } = await response.json();
 
             if (data.success) {
-                setResult("Form Submitted Successfully");
-                form.reset(); // Use the stored form reference
+                setResult("Message sent! We'll be in touch soon.");
+                form.reset();
             } else {
                 console.error("Error", data);
                 setResult(data.message);
@@ -34,87 +33,145 @@ export default function Contact(props: React.HTMLAttributes<HTMLDivElement>) {
         }
     };
 
+    const inputStyle: React.CSSProperties = {
+        padding: "0.875rem 1rem",
+        border: "1px solid rgba(255,255,255,0.1)",
+        borderRadius: "8px",
+        fontSize: "0.95rem",
+        background: "rgba(255,255,255,0.04)",
+        color: "var(--text-color)",
+        fontFamily: "'Albert Sans', sans-serif",
+        width: "100%",
+        boxSizing: "border-box",
+        transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+    };
+
     return (
         <div
             {...props}
             style={{
-                width: "100%",
-                maxWidth: "640px", // Increased max-width for better readability
-                margin: "3rem auto", // Adjusted margin for better spacing
-                padding: "3rem", // Increased padding
-                background: "var(--background-color)", // Dark background matching the theme
-                borderRadius: "12px", // Slightly larger border radius
-                boxShadow: "0 6px 12px rgba(0, 0, 0, 0.2)", // Stronger shadow for depth
-                color: "var(--text-color)", // Text color matching the theme
+                maxWidth: "1280px",
+                margin: "0 auto",
+                padding: "5rem 2rem 6rem",
+                ...props.style,
             }}
         >
-            <h2 style={{ textAlign: "center", color: "var(--primary-color)", marginBottom: "1.5rem" }}>
-                Contact Us
-            </h2>
-            <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    required
-                    style={{
-                        padding: "1rem",
-                        border: "1px solid var(--primary-color)",
-                        borderRadius: "6px",
-                        fontSize: "1.1rem",
-                        background: "var(--background-color)",
-                        color: "var(--text-color)",
-                    }}
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    required
-                    style={{
-                        padding: "1rem",
-                        border: "1px solid var(--primary-color)",
-                        borderRadius: "6px",
-                        fontSize: "1.1rem",
-                        background: "var(--background-color)",
-                        color: "var(--text-color)",
-                    }}
-                />
-                <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    required
-                    style={{
-                        padding: "1rem",
-                        border: "1px solid var(--primary-color)",
-                        borderRadius: "6px",
-                        fontSize: "1.1rem",
-                        background: "var(--background-color)",
-                        color: "var(--text-color)",
-                        minHeight: "150px",
-                    }}
-                ></textarea>
-                <button
-                    type="submit"
-                    style={{
-                        padding: "1rem",
-                        background: "var(--primary-color)",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "6px",
-                        fontSize: "1.1rem",
-                        cursor: "pointer",
-                        transition: "background 0.3s ease",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--secondary-color)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "var(--primary-color)")}
-                >
-                    Send
-                </button>
-            </form>
-            <span style={{ display: "block", marginTop: "1.5rem", textAlign: "center", color: "var(--text-color)" }}>
-                {result}
-            </span>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                    gap: "5rem",
+                    alignItems: "start",
+                }}
+            >
+                {/* Left: info panel */}
+                <div>
+                    <span className="section-label">Contact</span>
+                    <h2
+                        style={{
+                            fontSize: "clamp(1.8rem, 3vw, 2.5rem)",
+                            fontWeight: 800,
+                            color: "var(--text-color)",
+                            marginBottom: "0.5rem",
+                            lineHeight: "1.2",
+                        }}
+                    >
+                        Let's build something{" "}
+                        <span className="gradient-text">together</span>
+                    </h2>
+                    <div className="section-divider" />
+                    <p
+                        style={{
+                            color: "rgba(250,253,255,0.55)",
+                            lineHeight: "1.8",
+                            fontSize: "1rem",
+                            marginBottom: "2.5rem",
+                        }}
+                    >
+                        Whether you need a custom 3D viewer, scientific visualization
+                        tooling, or enterprise F3D support — we'd love to hear from you.
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                        <a
+                            href="mailto:contact@friiz.eu"
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.85rem",
+                                color: "rgba(250,253,255,0.7)",
+                                textDecoration: "none",
+                                fontSize: "0.95rem",
+                                transition: "color 0.2s ease",
+                            }}
+                        >
+                            <span className="service-icon" style={{ width: "36px", height: "36px", borderRadius: "8px", marginBottom: 0, flexShrink: 0 }}>
+                                <FaEnvelope size={13} />
+                            </span>
+                            contact@friiz.eu
+                        </a>
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "0.85rem",
+                                color: "rgba(250,253,255,0.7)",
+                                fontSize: "0.95rem",
+                            }}
+                        >
+                            <span className="service-icon" style={{ width: "36px", height: "36px", borderRadius: "8px", marginBottom: 0, flexShrink: 0 }}>
+                                <FaMapMarkerAlt size={13} />
+                            </span>
+                            Lyon, France
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right: form */}
+                <div className="glass-card">
+                    <form onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your Name"
+                            required
+                            style={inputStyle}
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Your Email"
+                            required
+                            style={inputStyle}
+                        />
+                        <textarea
+                            name="message"
+                            placeholder="Tell us about your project..."
+                            required
+                            style={{ ...inputStyle, minHeight: "140px", resize: "vertical" }}
+                        />
+                        <button
+                            type="submit"
+                            className="btn-primary"
+                            style={{ width: "100%", justifyContent: "center" }}
+                        >
+                            Send Message
+                        </button>
+                    </form>
+                    {result && (
+                        <p
+                            style={{
+                                marginTop: "1rem",
+                                textAlign: "center",
+                                fontSize: "0.875rem",
+                                color: result.includes("sent") ? "#4ade80" : "rgba(250,253,255,0.55)",
+                                margin: "1rem 0 0",
+                            }}
+                        >
+                            {result}
+                        </p>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

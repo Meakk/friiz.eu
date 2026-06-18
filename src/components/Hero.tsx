@@ -1,59 +1,82 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/friiz_white.svg";
-import { Link } from "wouter";
+import f3dLogo from "../assets/f3d.svg";
 
 const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
-  const words = ["Explore.", "Visualize.", "Interact."];
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [animate, setAnimate] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimate(true); // Trigger animation
-      setTimeout(() => {
-        setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-        setAnimate(false); // Reset animation
-      }, 500); // Match the animation duration
-    }, 2000); // Change word every 2 seconds
-    return () => clearInterval(interval);
+    const t = setTimeout(() => setVisible(true), 80);
+    return () => clearTimeout(t);
   }, []);
 
+  const trans = (delay: number): React.CSSProperties => ({
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(24px)",
+    transition: `opacity 0.65s ease ${delay}ms, transform 0.65s ease ${delay}ms`,
+  });
+
+  const handleContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleServices = () => {
+    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div
-      {...props}
-    >
-      <h1>
-        <span style={{ color: "var(--text-color)", display: "inline-block", verticalAlign: "top" }}>Welcome to</span>
-        <img
-          src={logo}
-          alt="friiz"
-          style={{
-            height: "7rem", // Match the height of the text
-            width: "auto", // Maintain aspect ratio
-          }}
-        />
-      </h1>
-      <div
+    <div {...props}>
+      <div className="hero-badge" style={trans(0)}>
+        <img src={f3dLogo} alt="F3D" style={{ height: "20px", width: "auto" }} />
+        F3D Experts & Maintainers
+      </div>
+
+      <h1
         style={{
-          display: "flex", // Use flexbox for alignment
-          justifyContent: "flex-end", // Align the content to the right
-          width: "100%", // Ensure the div spans the full width
-          transform: "translateX(-40px) translateY(-20px)"
+          ...trans(100),
+          fontSize: "clamp(2.4rem, 5vw, 4rem)",
+          lineHeight: "1.1",
+          color: "var(--text-color)",
+          fontWeight: 800,
+          marginBottom: "1.5rem",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          gap: 0,
         }}
       >
-        <span
-          style={{
-            color: "var(--text-color)",
-            fontWeight: "bold",
-            fontSize: "1.5rem",
-            display: "inline-block",
-            transform: animate ? "translateX(100%)" : "translateX(0)",
-            opacity: animate ? 0 : 1,
-            transition: "transform 0.4s ease, opacity 0.4s ease"
-          }}
-        >
-          {words[currentWordIndex]}
-        </span>
+        Industrial-Grade
+        <br />
+        <span className="gradient-text">3D Visualization</span>
+      </h1>
+
+      <p
+        style={{
+          ...trans(200),
+          fontSize: "1.1rem",
+          maxWidth: "500px",
+          color: "rgba(250,253,255,0.62)",
+          marginBottom: "2.5rem",
+          lineHeight: "1.85",
+        }}
+      >
+        From scientific datasets to interactive product demos — we build
+        high-performance 3D experiences powered by open-source technologies.
+      </p>
+
+      <div
+        style={{
+          ...trans(320),
+          display: "flex",
+          gap: "1rem",
+          flexWrap: "wrap",
+          pointerEvents: "auto",
+        }}
+      >
+        <button className="btn-primary" onClick={handleContact}>
+          Get in Touch
+        </button>
+        <button className="btn-outline" onClick={handleServices}>
+          Our Services
+        </button>
       </div>
     </div>
   );

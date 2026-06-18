@@ -11,34 +11,51 @@ const Header = () => {
 
   return (
     <nav>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-          <Link href="/" style={{ color: "var(--text-color)", textDecoration: "none" }}>
-            <img src={logo} alt="friiz" height={40} style={{ margin: "0 20px" }} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          maxWidth: "1280px",
+          margin: "0 auto",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
+          <Link href="/" style={{ color: "var(--text-color)", textDecoration: "none", display: "flex" }}>
+            <img src={logo} alt="friiz" height={34} style={{ display: "block" }} />
           </Link>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          <div style={{ display: "flex", gap: "1.75rem" }}>
             <a
               href="#hero"
+              className="nav-link"
               onClick={(e) => {
-                e.preventDefault(); // Prevent default anchor behavior
+                e.preventDefault();
                 handleScroll("hero");
               }}
-              style={{ color: "var(--text-color)", textDecoration: "none" }}
             >
               Home
             </a>
             <a
-              href="#contact"
+              href="#services"
+              className="nav-link"
               onClick={(e) => {
-                e.preventDefault(); // Prevent default anchor behavior
-                handleScroll("contact");
+                e.preventDefault();
+                handleScroll("services");
               }}
-              style={{ color: "var(--text-color)", textDecoration: "none" }}
             >
-              Contact
+              Services
             </a>
           </div>
         </div>
+
+        <button
+          className="btn-primary"
+          style={{ padding: "0.55rem 1.4rem", fontSize: "0.875rem" }}
+          onClick={() => handleScroll("contact")}
+        >
+          Get in Touch
+        </button>
       </div>
     </nav>
   );
