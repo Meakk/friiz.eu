@@ -57,15 +57,44 @@ class Viewer extends React.Component<{ file: string, scaling?: number, target?: 
     // This targets the camera to scene origin
     //camera.setTarget(new BABYLON.Vector3(0.000171477,-0.000747137,0.0191574));
 
-    const canvas = scene.getEngine().getRenderingCanvas();
-
     // This attaches the camera to the canvas
     camera.attachControl(true);
 
-    // Listen for pointer down events to hide the hint on first interaction
-    scene.onPointerObservable.add((pointerInfo) => {
+    // Babylon sets touch-action:none on the canvas, preventing scroll.
+    // Override to pan-y by default so the page can scroll when not on the model.
+    const canvas = scene.getEngine().getRenderingCanvas();
+    if (canvas) canvas.style.touchAction = "pan-y";
+
+    // Listen for interactions on the model
+    scene.onPrePointerObservable.add((pointerInfo) => {
+
       if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERDOWN) {
-        this.hideHint();
+        const canvas = scene.getEngine().getRenderingCanvas();
+        if (!canvas) return;
+        
+        const pickRay = scene.createPickingRay(
+          pointerInfo.event.clientX - canvas.getBoundingClientRect().left,
+          pointerInfo.event.clientY - canvas.getBoundingClientRect().top,
+          BABYLON.Matrix.Identity(),
+          camera
+        );
+        
+        if (pickRay) {
+          const hit = scene.pickWithRay(pickRay);
+          
+          if (hit && hit.hit) {
+            // On model: disable scroll so rotation is smooth
+            canvas.style.touchAction = "none";
+            this.hideHint();
+          } else {
+            // Not on model: skip Babylon interaction, keep pan-y for scrolling
+            pointerInfo.skipOnPointerObservable = true;
+          }
+        }
+      } else if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERUP) {
+        // Restore pan-y after interaction ends
+        const canvas = scene.getEngine().getRenderingCanvas();
+        if (canvas) canvas.style.touchAction = "pan-y";
       }
     });
 

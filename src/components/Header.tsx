@@ -21,8 +21,8 @@ const Header = () => {
           margin: "0 auto",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "2.5rem" }}>
-          <Link href="/" style={{ color: "var(--text-color)", textDecoration: "none", display: "flex" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", minWidth: 0 }}>
+          <Link href="/" style={{ color: "var(--text-color)", textDecoration: "none", display: "flex", flexShrink: 0 }}>
             <img src={logo} alt="friiz" height={34} style={{ display: "block" }} />
           </Link>
           <div style={{ display: "flex", gap: "1.75rem" }}>
@@ -51,7 +51,7 @@ const Header = () => {
 
         <button
           className="btn-primary"
-          style={{ padding: "0.55rem 1.4rem", fontSize: "0.875rem" }}
+          style={{ padding: "0.55rem 1.4rem", fontSize: "0.875rem", flexShrink: 0, marginLeft: "1rem" }}
           onClick={() => handleScroll("contact")}
         >
           Get in Touch

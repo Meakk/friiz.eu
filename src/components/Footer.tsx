@@ -126,7 +126,7 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} friiz. All rights reserved.
         </p>
         <p style={{ color: "rgba(250,253,255,0.25)", fontSize: "0.8rem", margin: 0 }}>
-          FRIIZ SAS - SIRET: FR6901.105322770
+          FRIIZ SAS - EUID: FR6901.105322770
         </p>
       </div>
     </footer>
