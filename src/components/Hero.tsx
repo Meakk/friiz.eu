@@ -58,7 +58,7 @@ const Hero = (props: React.HTMLAttributes<HTMLDivElement>) => {
           lineHeight: "1.85",
         }}
       >
-        From scientific datasets to interactive product viewers — we build
+        From scientific datasets to interactive product viewers, we build
         high-performance 3D experiences powered by open-source technologies.
       </p>
 

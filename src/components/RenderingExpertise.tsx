@@ -6,7 +6,7 @@ const services = [
     Icon: FiEye,
     title: "3D Visualization",
     description:
-      "Deploy beautiful, interactive 3D viewers on any platform — Windows, Linux, macOS, Android, and Web. We support 50+ formats including GLB, STEP, USD, VTK, and point clouds.",
+      "Deploy beautiful, interactive 3D viewers on any platform: Windows, Linux, macOS, Android, and Web. We support 75+ formats including GLB, STEP, USD, VTK, and point clouds.",
   },
   {
     Icon: FiCpu,
@@ -54,7 +54,7 @@ const RenderingExpertise = (_props: React.HTMLAttributes<HTMLDivElement>) => {
             lineHeight: "1.75",
           }}
         >
-          We are specialists in F3D — the open-source powerhouse behind
+          We are specialists in F3D, the open-source powerhouse behind
           industrial 3D visualization. Here's how we help.
         </p>
       </div>
